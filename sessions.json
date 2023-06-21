@@ -1,0 +1,16 @@
+{
+  "sessions": [
+    {
+      "id": "588963286:588963286",
+      "data": {
+        "__scenes": {
+          "current": "scan-image",
+          "state": {}
+        },
+        "lastRequest": 1687308006321,
+        "menuMessage": 138,
+        "loaded": true
+      }
+    }
+  ]
+}
