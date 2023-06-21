@@ -38,7 +38,7 @@ scanImage.enterHandler = async ctx => {
       return;
     }
 
-    const menu = await ctx.reply('Отправьте мне изображение *как документ*', {
+    const menu = await ctx.reply('Отправьте мне изображение *как файл*', {
       reply_markup: Markup.inlineKeyboard([
         [Markup.button.callback('Отмена', 'cancel')]
       ]).reply_markup,
@@ -55,6 +55,9 @@ scanImage.enterHandler = async ctx => {
 
 scanImage.action('cancel', ctx => {
   ctx.deleteMessage().catch(() => null);
+  if (!ctx.session.loaded && ctx.session.lastRequest) {
+    ctx.session.lastRequest = Date.now() - delay;
+  }
   ctx.scene.leave();
 });
 
@@ -67,7 +70,7 @@ scanImage.on(message('photo'), (ctx, next) => {
   if (!ctx.session.loaded) {
     const context = ctx;
     ctx
-      .reply('Отправьте изображение *как документ*', {
+      .reply('Отправьте изображение *как файл*', {
         parse_mode: 'MarkdownV2'
       })
       .then(({ message_id }) => {
