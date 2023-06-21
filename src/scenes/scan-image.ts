@@ -63,6 +63,25 @@ scanImage.on('message', (ctx, next) => {
   next();
 });
 
+scanImage.on(message('photo'), (ctx, next) => {
+  if (!ctx.session.loaded) {
+    const context = ctx;
+    ctx
+      .reply('Отправьте изображение *как документ*', {
+        parse_mode: 'MarkdownV2'
+      })
+      .then(({ message_id }) => {
+        setTimeout(async () => {
+          try {
+            await context.telegram.deleteMessage(context.from.id, message_id);
+          } catch {
+            null;
+          }
+        });
+      });
+  }
+});
+
 scanImage.on(message('document'), async ctx => {
   try {
     if (ctx.session.loaded) {
