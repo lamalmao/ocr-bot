@@ -80,6 +80,8 @@ scanImage.on(message('photo'), (ctx, next) => {
         });
       });
   }
+
+  next();
 });
 
 scanImage.on(message('document'), async ctx => {
