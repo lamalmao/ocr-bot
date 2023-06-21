@@ -9,7 +9,7 @@ import recognize from '../scanner.js';
 import yandexWorker from '../index.js';
 import settings from '../settings.js';
 
-const delay = settings.delay;
+const delay = settings.delay * 60 * 1000;
 const scanImage = new Scenes.BaseScene<Bot>('scan-image');
 
 const downloadImage: (url: URL, filename: string) => Promise<void> = async (
@@ -32,7 +32,7 @@ scanImage.enterHandler = async ctx => {
     if (then && now - then <= delay) {
       await ctx.reply(
         // prettier-ignore
-        `Сканировать изображения можно раз в ${delay} минут${delay === 1 ? 'у' : '(ы)'}, подождите пожалуйста`
+        `Сканировать изображения можно раз в ${settings.delay} минут${settings.delay === 1 ? 'у' : '(ы)'}, подождите пожалуйста`
       );
       ctx.scene.leave();
       return;
