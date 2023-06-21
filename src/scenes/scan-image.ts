@@ -77,7 +77,7 @@ scanImage.on(message('photo'), (ctx, next) => {
           } catch {
             null;
           }
-        });
+        }, 3000);
       });
   }
 
